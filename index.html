@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random API joke</title>
+</head>
+
+<body>
+    <div id="output"></div>
+    <button id="load">Load</button>
+
+    <!--JS-->
+    <script type="text/javascript">
+
+        var output = document.getElementById('output');
+        var loadBtn = document.getElementById('load');
+
+        loadBtn.addEventListener('click', loadAjax);
+
+        function loadAjax(){
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                var jsonData = JSON.parse(ajax.responseText);
+                // console.log(jsonData.results[0])
+                var data = jsonData.results[0];
+                var html = data.name.first + ' '+ data.name.last + '<br><img src="' + data.picture.large + '">'
+                // console.log(html)
+                output.innerHTML = html;
+            }
+        }
+        ajax.open('GET', 'https://randomuser.me/api', true)
+        ajax.send();
+    }
+
+    </script>
+</body>
+
+</html>
