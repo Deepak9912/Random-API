@@ -20,21 +20,20 @@
 
         loadBtn.addEventListener('click', loadAjax);
 
-        function loadAjax(){
-        var ajax = new XMLHttpRequest();
-        ajax.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                var jsonData = JSON.parse(ajax.responseText);
-                // console.log(jsonData.results[0])
-                var data = jsonData.results[0];
-                var html = data.name.first + ' '+ data.name.last + '<br><img src="' + data.picture.large + '">'
-                // console.log(html)
-                output.innerHTML = html;
+        function loadAjax() {
+            var ajax = new XMLHttpRequest();
+            ajax.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var jsonData = JSON.parse(ajax.responseText);
+                    // console.log(jsonData.results[0])
+                    var data = jsonData.results[0];
+                    var html = '<h2>' + data.name.title + ' ' + data.name.first + ' ' + data.name.last + '</h2>' + '<br><img src="' + data.picture.large + '">' + '<br>' + data.email + '<br>' + data.dob.date + '<br>' + data.phone;
+                    output.innerHTML = html;
+                }
             }
+            ajax.open('GET', 'https://randomuser.me/api', true)
+            ajax.send();
         }
-        ajax.open('GET', 'https://randomuser.me/api', true)
-        ajax.send();
-    }
 
     </script>
 </body>
